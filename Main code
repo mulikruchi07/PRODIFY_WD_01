@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Navigation Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #4CAF50; /* Default dark green color */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #8BC34A; /* Light green color when hovered */
+        }
+
+        .active {
+            background-color: rgb(136, 197, 38); /* Yellow color for active item */
+        }
+
+        /* Additional color transitions */
+        .navbar.white {
+            background-color: #fff; /* White color */
+        }
+
+        .navbar.yellow {
+            background-color: yellow; /* Yellow color */
+        }
+
+        .content {
+            padding-top: 60px; /* Adjust based on the height of your navbar */
+            padding-bottom: 20px;
+            height: 2000px; /* Adjust height to make the content scrollable */
+        }
+
+        .section {
+            padding: 20px;
+            background-color: #f2f2f2;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar" id="navbar">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h1>Welcome to our Website</h1>
+            <p>This is the content section. Scroll down to see the navigation menu color change.</p>
+        </div>
+    </div>
+
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            var navbar = document.getElementById("navbar");
+            var scrollPosition = window.scrollY;
+
+            // Calculate color transition points
+            var darkGreenEnd = window.innerHeight; // Transition to light green when scrolled past viewport height
+            var lightGreenEnd = darkGreenEnd + 1000; // Transition to yellow when scrolled further down
+            var yellowEnd = lightGreenEnd + 1000; // Transition to white when scrolled further down
+
+            // Change color based on scroll position
+            if (scrollPosition < darkGreenEnd) {
+                navbar.style.backgroundColor = "#4CAF50"; // Dark green
+            } else if (scrollPosition < lightGreenEnd) {
+                navbar.style.backgroundColor = "#8BC34A"; // Light green
+            } else if (scrollPosition < yellowEnd) {
+                navbar.style.backgroundColor = "yellow"; // Yellow
+            } else {
+                navbar.classList.add("white"); // White
+            }
+
+            // Remove color classes when scrolling back up
+            if (scrollPosition < lightGreenEnd) {
+                navbar.classList.remove("yellow", "white");
+            } else if (scrollPosition < darkGreenEnd) {
+                navbar.classList.remove("white");
+            }
+        }
+    </script>
+
+</body>
+</html>
